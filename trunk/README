@@ -1,0 +1,86 @@
+INTRODUCTION:
+--------------------------------
+
+RoboPeak USB Connector is a driverless USB ISP programmer for AVR/C51 MCU. It is developed by RoboPeak team (www.RoboPeak.com).
+
+RoboPeak USB Connector is based on the work of AVR-Doper project (http://www.obdev.at/products/vusb/avrdoper.html), which is a STK500 compatible In-System Programmer (ISP) and High Voltage Serial Programmer (HVSP). 
+
+The USB connectivity is achieved using the v-usb lib (a software-only implementation of a low-speed USB device for Atmel's AVR microcontrollers). We only use a simple AVR MCU in the circuit. 
+
+The RoboPeak USB Connector can be considered as a simplified version of AVR-Doper, besides, the firmware has been written using Arduino-Lite firmware libarary and the building system. 
+
+Supported Operating Systems:
+---------------------------------
+In theory, any OS with build-in HID usb drivers is supported. 
+As the PC-side client (avrdude.exe) can work on the following systems, RoboPeak USB Connector should work for these systems as well:
+
+<> Linux with libusb
+<> Windows from the version WinXP
+<> MacOS
+
+We had verified the following Windows Versions:
+<> Windows XP
+<> Windows Vista, both 32bit and 64 bit versions
+<> Windows 7, both 32bit and 64 bit versions
+
+
+How to compile the firmware?
+---------------------------------
+
+The RoboPeak USB Connector requires Arduino-Lite to build the hex file, please refer to the document under firmware folder (README.txt) for details.
+
+
+How to make the hardware?
+---------------------------------
+
+The hardware folder contains the schematic of RoboPeak USB Connector. The PCB layout file will be released soon, you may refer to the referece_layout/.
+
+Besides, The AVR-Doper should support our firmware as well.
+
+
+How to program a new-made RoboPeak USB Connector?
+---------------------------------
+You may use the make burnall command to program a new-made RoboPeak USB Connector. This command will burn the firmware hex into the AVR chip along with the BootloaderHID bootloader. The target AVR chip fuse setting will be configed automatically by this command.
+
+You can also program the RoboPeak USB Connector manually, the fuse setting are:
+
+// for Atmega88 only
+LFUSE=CE
+HFUSE=DD
+EFUSE=00
+
+You will need to burn the BootloaderHID firmware as well, the hex file can be found in the Arduino-Lite project ( <Arduino-Lite/src/bootloaders/hidbootloader/pre-compiled/mega88_12M.hex)
+
+How to use it?
+---------------------------------
+You may refer to the AVR-Doper document for its general usage:
+  http://www.obdev.at/products/vusb/avrdoper.html
+
+We recommend you to use RoboPeak USB Connector with Arduino-Lite together, as the Arduino-Lite building system contains the build-in support of RoboPeak USB Connector (AVR-Doper).
+
+You can program the AVR chip simply using the "make burn" command with Arduino-Lite.
+
+You may view the video-chip of the burning progress with Arduino-Lite:
+  http://www.tudou.com/programs/view/Den9uh3HTHE/
+
+
+Self-Program?
+---------------------------------
+Self-Program is supported by RoboPeak USB Connector. The firmware also contains a driverless USB bootloader called BootloadHID (http://www.obdev.at/products/vusb/bootloadhid.html).
+
+In some circumstance, e.g. you need to update the firmware but you only have one RoboPeak USB Connector, the self-program ability is very helpful.
+
+To use this feature, follow these steps:
+<> shortcut the pin ADC0(PC1) and VCC of the Pin P_ADC
+<> connect the RoboPeak USB Connector to PC
+<> The OS should prompt a device called HIDboot has been connected
+<> enter the RoboPeak USB Connector firmware project folder, launch the bash shell, type 
+   make usbupload
+
+
+REFERENCE:
+---------------------------------
+Project Homepage:       http://code.google.com/p/rp-usb-connector/
+Arduino-Lite Homepage:  http://code.google.com/p/arduino-lite/
+RoboPeak Team:          http://www.RoboPeak.com
+AVR-Doper:              http://www.obdev.at/products/vusb/avrdoper.html
